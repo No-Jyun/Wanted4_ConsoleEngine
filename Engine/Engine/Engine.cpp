@@ -13,7 +13,8 @@ namespace Wanted
 
 	Engine::~Engine()
 	{
-
+		delete mainLevel;
+		mainLevel = nullptr;
 	}
 
 	void Engine::Run()
@@ -151,10 +152,10 @@ namespace Wanted
 		//	<< ", FPS : " << (1.0f / deltaTime) << "\n";
 
 		// ESC키 눌리면 종료
-		//if (GetKeyDown(VK_ESCAPE))
-		//{
-		//	QuitEngine();
-		//}
+		if (GetKeyDown(VK_ESCAPE))
+		{
+			QuitEngine();
+		}
 
 		// 레벨에 이벤트 흘리기
 		// 예외처리
