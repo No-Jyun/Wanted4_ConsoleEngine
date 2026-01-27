@@ -7,8 +7,14 @@
 
 namespace Wanted
 {
+	// 전역 변수 초기화
+	Engine* Engine::instance = nullptr;
+
 	Engine::Engine()
 	{
+		// 전역 변수 값 초기화
+		instance = this;
+
 		// 입력 관리자 생성
 		input = new Input();
 	}
@@ -112,6 +118,19 @@ namespace Wanted
 
 	}
 
+	Engine& Engine::Get()
+	{
+		// 예외처리
+		if (!instance)
+		{
+			// Silent is violent
+			std::cout << "Error : Engine::Get(). instance is null\n";
+			__debugbreak();
+		}
+
+		return *instance;
+	}
+
 	void Engine::BeginPlay()
 	{
 		// 레벨이 있으면 이벤트 전달
@@ -129,12 +148,6 @@ namespace Wanted
 		//std::cout 
 		//	<< "DeltaTime : " << deltaTime
 		//	<< ", FPS : " << (1.0f / deltaTime) << "\n";
-
-		// ESC키 눌리면 종료
-		if (input->GetKeyDown(VK_ESCAPE))
-		{
-			QuitEngine();
-		}
 
 		// 레벨에 이벤트 흘리기
 		// 예외처리
