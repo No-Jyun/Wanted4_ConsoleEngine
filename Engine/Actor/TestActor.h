@@ -2,7 +2,7 @@
 
 #include "Actor.h"
 
-class TestActor : public Wanted::Actor
+class WANTED_API TestActor : public Wanted::Actor
 {
 public:
 //protected:	// 물려받아서 구현하는 쪽은 protected도 가능
