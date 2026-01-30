@@ -59,7 +59,6 @@ namespace Wanted
 
 	void Level::AddNewActor(Actor* newActor)
 	{
-		// 나중에 프레임 처리 고려해서 따로 추가 작업 해야함
 		// push 류는 L-value 레퍼런스를 받음 (L-value 레퍼런스은 복사를 안함
 		//actors.push_back(newActor);
 		
@@ -67,7 +66,12 @@ namespace Wanted
 		// 성능이 더 나을 수 있음. 그러나 현대의 c++은 크게 상관이 없음
 		// L-value가 들어와도 알아서 처리함
 		//actors.emplace_back(newActor);
+		
+		// 나중에 추가를 위해 임시 배열에 저장
 		addRequestedActors.emplace_back(newActor);
+
+		// 오너십 설정
+		newActor->SetOwner(this);
 	}
 
 	void Level::ProcessAddAndDestroyActor()
