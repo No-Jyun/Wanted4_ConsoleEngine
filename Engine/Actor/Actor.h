@@ -29,7 +29,7 @@ namespace Wanted
 		// Getter
 		inline bool HasBeganPlay() const { return hasBeganPlay; }
 		inline bool IsActive() const { return isActive && !destroyRequested; }
-		inline bool IsDestroyRequested() const{ return destroyRequested; }
+		inline bool DestroyRequested() const{ return destroyRequested; }
 
 	protected:
 		// 이미 BeginPlay 이벤트를 받았는지 여부

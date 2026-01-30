@@ -1,4 +1,6 @@
 #include "Actor.h"
+#include "Util/Util.h"
+
 #include <iostream>
 #include <Windows.h>
 
@@ -30,15 +32,7 @@ namespace Wanted
 	void Actor::Draw()
 	{
 		// 액터의 현재 좌표로 콘솔 좌표 위치 이동
-		COORD coord = {};
-		
-		// coord의 x와 y 값은 short 자료형이므로 형변환을 해야함
-		// 기본형끼리의 형변환이므로 static cast 사용
-		coord.X = static_cast<short>(position.x);
-		coord.Y = static_cast<short>(position.y);
-		
-		// 윈도우에선 기본적으로 출력용, 입력용, 에러용 콘솔 3개를 가짐
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+		Util::SetConsolePosition(position);
 
 		// 이동한 좌표에서 글자 그리기
 		std::cout << image;
@@ -47,10 +41,7 @@ namespace Wanted
 	void Actor::SetPosition(const Vector2& newPosition)
 	{
 		// 액터의 좌표로 콘솔 좌표 위치 이동
-		COORD coord = {};
-		coord.X = static_cast<short>(position.x);
-		coord.Y = static_cast<short>(position.y);
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+		Util::SetConsolePosition(position);
 
 		// 해당 위치의 글자 값 지우기 (빈칸 그리기)
 		std::cout << ' ';
