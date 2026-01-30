@@ -12,7 +12,7 @@ using namespace Wanted;
 Player::Player()
 	: super('P', Vector2(10, 5), Color::Red)
 {
-
+	sortingOrder = 10;
 }
 
 void Player::BeginPlay()
