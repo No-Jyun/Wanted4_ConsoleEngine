@@ -2,12 +2,14 @@
 
 #include "Actor/Actor.h"
 
-class Player : public Wanted::Actor
+using namespace Wanted;
+
+class Player : public Actor
 {
 	RTTI_DECLARATIONS(Player, Actor)
 
 public:
-	Player();
+	Player(const Vector2& position);
 
 //public:
 protected:	// 물려받아서 구현하는 쪽은 protected도 가능

@@ -1,13 +1,17 @@
 #include "TestLevel.h"
 #include "Actor/Player.h"
+#include "Actor/Wall.h"
+#include "Actor/Ground.h"
+#include "Actor/Box.h"
+#include "Actor/Target.h"
 
 #include <iostream>
 
 /*
-# : 벽(Wall) 
-. : 바닥(Ground) 
-p : 플레이어(Player) 
-b : 박스(Box) 
+# : 벽(Wall)
+. : 바닥(Ground)
+p : 플레이어(Player)
+b : 박스(Box)
 t : 타겟(Target)
 */
 
@@ -16,6 +20,7 @@ TestLevel::TestLevel()
 	// TestActor 액터를 레벨에 추가
 	//AddNewActor(new Player());
 	LoadMap("Map.txt");
+	//LoadMap("Stage1.txt");
 }
 
 void TestLevel::LoadMap(const char* filename)
@@ -56,9 +61,85 @@ void TestLevel::LoadMap(const char* filename)
 	size_t readSize = fread(data, sizeof(char), fileSize, file);
 
 	// Test: 읽어온 데이터 임시로 출력
-	std::cout << data;
+	//std::cout << data;
 
 	// 읽어온 문자열을 분석 (파싱-Parcing) 해서 출력
+	// 인덱스를 사용해 한 문자씩 읽기
+	int index = 0;
+
+	// 객체를 생성할 위치 값
+	Wanted::Vector2 position;
+
+	while (true)
+	{
+		// 종료 조건
+		if (index >= fileSize)
+		{
+			break;
+		}
+
+		// 캐릭터 읽기
+		char mapCharacter = data[index];
+		index++;
+
+		// 개행 문자 처리
+		if (mapCharacter == '\n')
+		{
+			//std::cout << "\n";
+
+			// y좌표는 하나 늘리고, x좌표 초기화
+			position.x = 0;
+			position.y++;
+
+			continue;
+		}
+
+		/*
+		# : 벽(Wall)
+		. : 바닥(Ground)
+		p : 플레이어(Player)
+		b : 박스(Box)
+		t : 타겟(Target)
+		*/
+		// 한 문자씩 처리
+		switch (mapCharacter)
+		{
+		case '#':
+		case '1':
+			///std::cout << "#";
+			AddNewActor(new Wall(position));
+			break;
+
+		case '.':
+			//std::cout << " ";
+			AddNewActor(new Ground(position));
+			break;
+
+		case 'p':
+			//std::cout << "P";
+			// 플레이어도 이동 가능함
+			// 플레이어 밑에 땅이 있어야 함
+			AddNewActor(new Player(position));
+			AddNewActor(new Ground(position));
+			break;
+
+		case 'b':
+			//std::cout << "B";
+			// 박스는 이동 가능함
+			// 박스가 옮겨졌을 때 그 밑에 땅이 있어야 함
+			AddNewActor(new Box(position));
+			AddNewActor(new Ground(position));
+			break;
+
+		case 't':
+			//std::cout << "T";
+			AddNewActor(new Target(position));
+			break;
+		}
+
+		// x 좌표 증가 처리
+		position.x++;
+	}
 
 	// 사용한 버퍼 해제
 	delete[] data;
