@@ -55,7 +55,6 @@ void Game::ToggleMenu()
 
 	// 메인 레벨 변경
 	mainLevel = levels[static_cast<int>(state)];
-
 }
 
 Game& Game::Get()
