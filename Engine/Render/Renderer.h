@@ -73,7 +73,7 @@ namespace Wanted
 		void Present();
 
 		// 현재 사용할 버퍼를 반환하는 함수(Getter)
-		ScreenBuffer* GetCurrnetBuffer();
+		ScreenBuffer* GetCurrentBuffer();
 
 	private:
 		// 화면 크기
@@ -85,7 +85,7 @@ namespace Wanted
 		// 이중 버퍼 배열
 		ScreenBuffer* screenBuffers[2] = {};
 
-		// 현재 활성화된 버퍼 인덱스
+		// 현재 활성화된 버퍼 인덱스 (그리는 대상 / Back Buffer)
 		int currentBufferIndex = 0;
 
 		// 렌더 큐 (씬의 모든 그리기 명령을 모아두는 배열)
