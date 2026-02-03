@@ -13,7 +13,7 @@
 using namespace Wanted;
 
 Player::Player(const Vector2& position)
-	: super('P', position, Color::Green)
+	: super("P", position, Color::Green)
 {
 	// 그리기 우선순위 높게 설정
 	sortingOrder = 10;

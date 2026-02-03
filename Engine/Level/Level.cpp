@@ -89,7 +89,7 @@ namespace Wanted
 		// 액터 순회하면서 Draw 함수 호출
 		for (Actor* const actor : actors)
 		{
-			if (actor->IsActive())
+			if (!actor->IsActive())
 			{
 				continue;
 			}
